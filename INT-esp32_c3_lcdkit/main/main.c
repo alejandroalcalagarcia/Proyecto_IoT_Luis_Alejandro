@@ -27,24 +27,24 @@ void app_main(void) {
     esp_mqtt_client_handle_t mqtt_client = mqtt_beebotte_init();
     vTaskDelay(pdMS_TO_TICKS(2000)); // Esperar conexión
 
-    // 4. Inicializar Sensor de Temperatura Local
+    // 4. Inicializar Sensor AHT10 Local
     float temp_local = 0;
-    float hum_local  = 0;
+    float hum_local = 0; // Añadimos variable para humedad
+
     if (sensor_temperature_init() != ESP_OK) {
         ESP_LOGE(TAG, "Fallo al inicializar sensor AHT10");
     }
 
-    // 5. Bucle principal
     while (1) {
-        // Leemos nuestra propia planta (Interior)
+        // Ahora pasamos ambas variables
         if (sensor_temperature_read(&temp_local, &hum_local) == ESP_OK) {
-            printf("-> Temp Interior Local: %.2f °C | Humedad: %.2f %%\n", temp_local, hum_local);
+            printf("-> Temp Local: %.2f °C | Hum Local: %.2f %%\n", temp_local, hum_local);
 
             // Opcional: Podrías publicar también tu temperatura a otro topic (ej: "test/interior")
             // char payload[64];
             // sprintf(payload, "{\"data\":%.2f,\"write\":true}", temp_local);
             // esp_mqtt_client_publish(mqtt_client, "test/interior", payload, 0, 0, 0);
-
+            
         } else {
             ESP_LOGE(TAG, "Error leyendo sensor local");
         }
