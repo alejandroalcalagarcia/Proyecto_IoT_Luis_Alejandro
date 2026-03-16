@@ -1,0 +1,2 @@
+source /home/luis/Documentos/IOT/Proyecto_IoT_Luis_Alejandro/EXT-esp32_wroom_32e/build/gdbinit/symbols
+source /home/luis/Documentos/IOT/Proyecto_IoT_Luis_Alejandro/EXT-esp32_wroom_32e/build/gdbinit/connect
